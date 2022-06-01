@@ -36,9 +36,9 @@ void setup() {
   motor.attach(9);
   motor.write(0);
 
-  // Initial Light Check
+  // Initial Light Check - time in microseconds
   digitalWrite(RED, HIGH);
-  delay(500);
+  delay(500); //0.5 seconds
   digitalWrite(RED, LOW);
   digitalWrite(BLUE, HIGH);
   delay(500);
@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  buttonState1 = digitalRead(BUTTON1);
+  buttonState1 = digitalRead(BUTTON1); // move to 0 degree if clicked
   if(buttonState1 == HIGH) {
     digitalWrite(RED, HIGH);
     motor.write(0);
@@ -61,7 +61,7 @@ void loop() {
     digitalWrite(RED, LOW);
   }
   
-  buttonState2 = digitalRead(BUTTON2);
+  buttonState2 = digitalRead(BUTTON2); // move to 90 degree if clicked
   if(buttonState2 == HIGH) {
     digitalWrite(BLUE, HIGH);
     motor.write(90);
@@ -70,12 +70,12 @@ void loop() {
     digitalWrite(BLUE, LOW);
   }
   
-  buttonState3 = digitalRead(BUTTON3);
+  buttonState3 = digitalRead(BUTTON3); // move to 140 degree if clicked
   if(buttonState3 == HIGH) {
     digitalWrite(GREEN, HIGH);
     motor.write(140);
   }
   else {
-    digitalWrite(GREEN,LOW);
+    digitalWrite(GREEN,LOW); 
   }
 }
