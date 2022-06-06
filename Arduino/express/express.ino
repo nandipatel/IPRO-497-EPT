@@ -41,7 +41,7 @@ void setup() {
   pinMode(BUTTON1, INPUT);
 }
 void loop() {
-  if (CircuitPlayground.leftButton()) {
+  /*if (CircuitPlayground.leftButton()) {
     CircuitPlayground.redLED(HIGH);
     motor.write(20);
 
@@ -54,11 +54,51 @@ void loop() {
     motor.write(0);
 
     CircuitPlayground.clearPixels();
+    } else {
+    CircuitPlayground.redLED(LOW);
+    } */
+
+  if (CircuitPlayground.leftButton()) {
+    for (int rotate = 1; rotate <= 5; rotate++) { // Move 5 times
+      motor.write(45);
+      //motor.write(315);
+
+      for (pixeln = 0; pixeln < 5; pixeln ++) {
+        CircuitPlayground.setPixelColor(pixeln, CircuitPlayground.colorWheel(25 * pixeln));
+        delay(150);
+      }
+
+      delay(2000);
+      motor.write(0);
+
+      CircuitPlayground.clearPixels();
+      delay(2000);
+    }
+
   } else {
     CircuitPlayground.redLED(LOW);
   }
 
   if (CircuitPlayground.rightButton()) {
+    for (int rotate = 1; rotate <= 5; rotate++) {
+      motor.write(90);
+
+      for (pixeln = 0; pixeln < 10; pixeln ++) {
+        CircuitPlayground.setPixelColor(pixeln, CircuitPlayground.colorWheel(25 * pixeln));
+        delay(150);
+      }
+
+      delay(2000);
+      motor.write(0);
+
+      CircuitPlayground.clearPixels();
+      delay(2000);
+    }
+  } else {
+    CircuitPlayground.redLED(LOW);
+  }
+
+  /*if (CircuitPlayground.rightButton()) {
     CircuitPlayground.redLED(HIGH);
     motor.write(45);
 
@@ -71,28 +111,12 @@ void loop() {
     motor.write(0);
 
     CircuitPlayground.clearPixels();
-  } else {
-    CircuitPlayground.redLED(LOW);
-  }
-
-  /*if(CircuitPlayground.slideSwitch()) { // Will change it button 3
-    CircuitPlayground.redLED(HIGH);
-    motor.write(90);
-
-    for(pixeln =0; pixeln < 5; pixeln++) {
-      CircuitPlayground.setPixelColor(pixeln, CircuitPlayground.colorWheel(25 * pixeln));
-    delay(150);
-    }
-    delay(3000);
-    motor.write(0);
-
-    CircuitPlayground.clearPixels();
     } else {
     CircuitPlayground.redLED(LOW);
-    } */
+    }
 
-  buttonState1 = digitalRead(BUTTON1);
-  if (buttonState1 == HIGH) {
+    buttonState1 = digitalRead(BUTTON1);
+    if (buttonState1 == HIGH) {
     CircuitPlayground.redLED(HIGH);
     motor.write(140);
 
@@ -100,14 +124,14 @@ void loop() {
       CircuitPlayground.setPixelColor(pixeln, CircuitPlayground.colorWheel(25 * pixeln));
       delay(150);
     }
-    
+
     delay(3000);
-    
+
     motor.write(0);
     CircuitPlayground.clearPixels();
-  } else {
+    } else {
     CircuitPlayground.redLED(LOW);
-  }
+    } */
 
   delay(100);
 }
