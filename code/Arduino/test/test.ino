@@ -1,4 +1,5 @@
 /*
+<<<<<<< HEAD
    This ino file is only used for testing purposes
    The code in this folder might or might not be working at the time you open this
    Test 1 = Callibration
@@ -42,6 +43,37 @@ void    printHex   (const uint8_t * data, const uint32_t numBytes);
 // Packet buffer
 extern uint8_t packetbuffer[];
 
+=======
+ * This ino file is only used for testing purposes
+ * The code in this folder might or might not be working at the time you open this
+ * Test 1 = Callibration
+ * RESULT = SUCCESS
+ * 
+ * Test 2 = MinValues = 467, MaxValues = 575
+ * RESULT = FAILURE
+ * 
+ * Test 3 = Sensing orientation (For Some reasons the data give me above 350)
+ * RESULT= FAILURE
+ * 
+ * Test 4 = Testing another code
+ * RESULT = FAILURE
+ * 
+ * Test 5 = Zmin = 381, Zmax = 563, yMin = 370, yMax = 551, xMin = 371, xMax = 550
+ * RESULT = SUCCESS by giving acceleration g of -1 to 1 g
+ * 
+ * Test 6 = The ADXL335 only giving data from -1 g to 1 g only. Need to convert it to angle for the leg
+ * RESULT = X VALUE GIVING ME 360 DEGRESS (SUCCESS)
+ * 
+ * TEST 7 = Sending x angle through bluetooth to the adafruit app
+ * RESULT = 
+ */
+
+#include <bluefruit.h>
+
+BLEDfu bledfu;
+BLEUart bleuart;
+
+>>>>>>> 0e689ab516ecb112b0c192932b978ee0c3e64bf2
 // Analog read pins
 const int xPin = A3;
 const int yPin = A2;
@@ -55,11 +87,16 @@ int yValue;
 int zValue;
 
 void setup() {
+<<<<<<< HEAD
   Serial.begin(9600);
+=======
+  Serial.begin(115200);
+>>>>>>> 0e689ab516ecb112b0c192932b978ee0c3e64bf2
 
   Bluefruit.begin();
   Bluefruit.setTxPower(4);
 
+<<<<<<< HEAD
   // To be consistent OTA DFU should be added first if it exists
   bledfu.begin();
 
@@ -96,6 +133,29 @@ void startAdv(void)
   Bluefruit.Advertising.setInterval(32, 244);    // in unit of 0.625 ms
   Bluefruit.Advertising.setFastTimeout(30);      // number of seconds in fast mode
   Bluefruit.Advertising.start(0);                // 0 = Don't stop advertising after n seconds
+=======
+  bledfu.begin();
+
+  bleuart.begin();
+
+  startAdv();
+
+  
+}
+
+void startAdv(void) {
+  // Bluetooth Function
+  Bluefruit.Advertising.addFlags(BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE);
+  Bluefruit.Advertising.addTxPower();
+
+  Bluefruit.Advertising.addService(bleuart);
+  Bluefruit.ScanResponse.addName();
+
+  Bluefruit.Advertising.restartOnDisconnect(true);
+  Bluefruit.Advertising.setInterval(32, 244);
+  Bluefruit.Advertising.setFastTimeout(30);
+  Bluefruit.Advertising.start(0);
+>>>>>>> 0e689ab516ecb112b0c192932b978ee0c3e64bf2
 }
 
 void loop() {
