@@ -17,9 +17,17 @@
  * RESULT = SUCCESS by giving acceleration g of -1 to 1 g
  * 
  * Test 6 = The ADXL335 only giving data from -1 g to 1 g only. Need to convert it to angle for the leg
- * RESULT = X VALUE GIVING ME 360 DEGRESS (UNDEFINED)
+ * RESULT = X VALUE GIVING ME 360 DEGRESS (SUCCESS)
+ * 
+ * TEST 7 = Sending x angle through bluetooth to the adafruit app
+ * RESULT = 
  */
- 
+
+#include <bluefruit.h>
+
+BLEDfu bledfu;
+BLEUart bleuart;
+
 // Analog read pins
 const int xPin = A3;
 const int yPin = A2;
@@ -31,6 +39,31 @@ int zValue;
 
 void setup() {
   Serial.begin(115200);
+
+  Bluefruit.begin();
+  Bluefruit.setTxPower(4);
+
+  bledfu.begin();
+
+  bleuart.begin();
+
+  startAdv();
+
+  
+}
+
+void startAdv(void) {
+  // Bluetooth Function
+  Bluefruit.Advertising.addFlags(BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE);
+  Bluefruit.Advertising.addTxPower();
+
+  Bluefruit.Advertising.addService(bleuart);
+  Bluefruit.ScanResponse.addName();
+
+  Bluefruit.Advertising.restartOnDisconnect(true);
+  Bluefruit.Advertising.setInterval(32, 244);
+  Bluefruit.Advertising.setFastTimeout(30);
+  Bluefruit.Advertising.start(0);
 }
 
 void loop() {
