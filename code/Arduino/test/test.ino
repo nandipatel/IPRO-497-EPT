@@ -67,7 +67,6 @@ void startAdv(void) {
 }
 
 void loop() {
-
   // g values
   xValue = analogRead(xPin);
   int x = map(xValue, 371, 550, -90, 90);
@@ -90,8 +89,21 @@ void loop() {
   // Rotation / Angle
   Serial.print("x= ");
   float xAng = atan2(-yg, -zg) * 57.2957795 + 180;
+  delay(1);
   Serial.print(xAng);
-  Serial.println(" deg");
+  Serial.print(" deg \t");
 
-  delay(500);
+  Serial.print("y = ");
+  float yAng = atan2(-xg, -zg) * 57.2957795 + 180;
+  delay(1);
+  Serial.print(yAng);
+  Serial.print(" deg \t");
+
+  Serial.print("z = ");
+  float zAng = atan2(-yg, -xg) * 57.2957795 + 180;
+  delay(1);
+  Serial.print(zAng);
+  Serial.print(" deg \t");
+  Serial.print("\n");
+  delay(1000);
 }
