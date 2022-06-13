@@ -160,5 +160,5 @@ void loop() {
   Serial.println("\n");
   bleuart.println("\n");
   
-  delay(1000);
+  delay(500);
 }
