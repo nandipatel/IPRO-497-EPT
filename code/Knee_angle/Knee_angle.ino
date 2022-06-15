@@ -24,6 +24,9 @@
 
    Test 8 = Testing the bluetooth features
    RESULT = SUCCESS
+
+   TEST 9 = Changing the value to interger
+   RESULT = SUCCESS
 */
 
 #include <bluefruit.h>
@@ -34,13 +37,10 @@ BLEDfu bledfu;
 // Uart over BLE service
 BLEUart bleuart;
 
-// Function prototypes for packetparser.cpp
+/* Function prototypes for packetparser.cpp
 uint8_t readPacket (BLEUart *ble_uart, uint16_t timeout);
 float   parsefloat (uint8_t *buffer);
-void    printHex   (const uint8_t * data, const uint32_t numBytes);
-
-// Packet buffer
-extern uint8_t packetbuffer[];
+void    printHex   (const uint8_t * data, const uint32_t numBytes); */
 
 // Analog read pins
 const int xPin = A3;
@@ -83,15 +83,6 @@ void startAdv(void)
   // Since there is no room for 'Name' in Advertising packet
   Bluefruit.ScanResponse.addName();
 
-  /* Start Advertising
-     - Enable auto advertising if disconnected
-     - Interval:  fast mode = 20 ms, slow mode = 152.5 ms
-     - Timeout for fast mode is 30 seconds
-     - Start(timeout) with timeout = 0 will advertise forever (until connected)
-
-     For recommended advertising interval
-     https://developer.apple.com/library/content/qa/qa1931/_index.html
-  */
   Bluefruit.Advertising.restartOnDisconnect(true);
   Bluefruit.Advertising.setInterval(32, 244);    // in unit of 0.625 ms
   Bluefruit.Advertising.setFastTimeout(30);      // number of seconds in fast mode
@@ -129,27 +120,24 @@ void loop() {
   //bleuart.print(zg);
   //bleuart.print("g \n");
 
-  // Rotation / Angle
+  // ========================
+  // === Rotation / Angle ===
+  // ========================
+  
   Serial.print("x= ");
-  float xAng = atan2(-yg, -zg) * 57.2957795 + 180;
+  int xAng = atan2(-yg, -zg) * 57.2957795 + 180;
   delay(1);
   Serial.print(xAng);
   Serial.print(" deg \t");
 
-  //bleuart.print(xAng);
-  //bleuart.print(" deg \t");
-
   Serial.print("y = ");
-  float yAng = atan2(-xg, -zg) * 57.2957795 + 180;
+  int yAng = atan2(-xg, -zg) * 57.2957795 + 180;
   delay(1);
   Serial.print(yAng);
   Serial.print(" deg \t");
 
-  //bleuart.print(yAng);
-  //bleuart.print(" deg \t");
-
   Serial.print("z = ");
-  float zAng = (atan2(-yg, -xg) * 57.2957795 - 180) * -1;
+  int zAng = (atan2(-yg, -xg) * 57.2957795 - 180) * -1;
   delay(1);
   Serial.print(zAng);
   Serial.print(" deg \t");
